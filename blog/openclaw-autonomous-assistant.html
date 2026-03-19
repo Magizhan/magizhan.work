@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenClaw: My AI Jarvis on a Mac Mini — Magizhan</title>
+    <meta name="description"
+        content="How a self-hosted AI assistant changed the way I lead — giving kudos, raising PRs, and resolving code reviews from Slack and WhatsApp.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <canvas id="grid-canvas"></canvas>
+    <div class="noise"></div>
+
+    <nav class="nav">
+        <a href="/" class="nav-logo">M</a>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/#blog" class="nav-link">Blog</a>
+        </div>
+    </nav>
+
+    <main class="blog-post-layout">
+        <div class="container">
+            <a href="/" class="back-link">← Back</a>
+
+            <header class="post-header">
+                <div class="post-meta">
+                    <span class="post-date">February 6, 2026</span>
+                    <span class="post-tag">OpenClaw</span>
+                </div>
+                <h1 class="post-title">OpenClaw: My AI Jarvis on a Mac Mini</h1>
+                <p class="post-subtitle">How a self-hosted AI assistant changed the way I lead — giving kudos, raising
+                    PRs, and resolving code reviews, all from Slack.</p>
+            </header>
+
+            <article class="post-content">
+                <p>There's a difference between using AI and <strong>living with AI</strong>. ChatGPT is a tab I visit.
+                    OpenClaw is an assistant that's always on — sitting on a Mac Mini under my desk, connected to my
+                    Slack, my WhatsApp, and my GitHub. I talk to it the way I talk to a teammate.</p>
+
+                <h2>What OpenClaw Actually Is</h2>
+
+                <p>OpenClaw is an open-source, self-hosted AI assistant. You install it on your own machine, connect it
+                    to your messaging apps, and it becomes a <strong>persistent digital teammate</strong>. It remembers
+                    context across conversations. It runs commands on your machine. It reads files, writes code, and
+                    interacts with APIs. All data stays local.</p>
+
+                <p>I set it up on my laptop first, proved it out, and then moved it to a dedicated Mac Mini for 24/7
+                    availability. The setup is straightforward — install via npm, run the onboarding wizard, scan a QR
+                    code for WhatsApp, add tokens for Slack, and you're live.</p>
+
+                <h2>What I Actually Use It For</h2>
+
+                <p>This is where it gets interesting. These aren't demos — these are things I do daily:</p>
+
+                <p><strong>Giving kudos to team members.</strong> In our Slack channel, I type <em>"@OpenClaw give kudos
+                        to Ravi for the excellent work on the ride-matching algorithm"</em> and it posts a formatted
+                    appreciation message, tags the right person, and logs it. Small thing, but it makes recognition
+                    instant and frictionless.</p>
+
+                <p><strong>Raising PRs from a conversation.</strong> I describe what needs to change — <em>"Create a PR
+                        to fix the conversion percentage calculation in the analytics dashboard"</em> — and OpenClaw
+                    opens a PR on GitHub with a proper description, the right branch, and relevant code changes. I
+                    review and merge. The PR creation that used to be a context switch is now a message.</p>
+
+                <p><strong>Resolving PR comments from Slack.</strong> When a reviewer leaves comments on a PR, I can ask
+                    OpenClaw to address them: <em>"Check the review comments on PR #312 and fix the issues raised."</em>
+                    It reads the comments, understands what changes are needed, pushes the fixes, and replies to each
+                    comment explaining what was done. I verify and approve.</p>
+
+                <p><strong>Summarising Slack threads.</strong> Our engineering channel moves fast. When I've been in
+                    meetings all morning, I ask <em>"@OpenClaw summarise the key discussions from today"</em> — it reads
+                    the threads and gives me a structured summary with action items. Twenty minutes of scrolling
+                    compressed into thirty seconds.</p>
+
+                <p><strong>Checking code status.</strong> <em>"What's the build status of the driver-app service?"</em>
+                    or <em>"Are there any failing tests on main?"</em> — the assistant checks CI, reads logs, and gives
+                    me a straight answer. No need to open dashboards or dig through GitHub Actions.</p>
+
+                <div class="highlight-box">
+                    <h3>The Compound Effect</h3>
+                    <p>No single one of these is revolutionary. But together, they remove the <strong>friction between
+                            intent and action</strong>. I think "we should recognise that work" and it's done. I think
+                        "that PR comment needs fixing" and it's pushed. The gap between deciding and executing shrinks
+                        to zero.</p>
+                </div>
+
+                <h2>WhatsApp: The Always-On Channel</h2>
+
+                <p>Slack is for work hours. WhatsApp is for everything else. At midnight, I take a screenshot of an
+                    error on my phone, send it to OpenClaw on WhatsApp, and get a structured diagnosis before I've
+                    finished reading the error myself.</p>
+
+                <p>On weekends, it's my research assistant. <em>"What are the latest benchmarks comparing Gemini 2.5 to
+                        Claude Opus 4.6?"</em> — it searches, reads, and summarises. It's like having a really fast,
+                    tireless colleague who's always up for a conversation.</p>
+
+                <h2>The AI Model Layer</h2>
+
+                <p>OpenClaw supports multiple AI providers. I run it with <strong>Google Antigravity</strong>, which
+                    gives me access to both Claude and Gemini through a single authentication. The model is configurable
+                    — I've used Claude Sonnet 4.5 for most tasks (fast, reliable) and Gemini 2.5 Pro for code-heavy
+                    work.</p>
+
+                <p>When Claude Opus 4.6 dropped, I switched to it within minutes. The ability to swap models without
+                    changing any workflows is one of OpenClaw's underrated strengths — your channels, skills, and habits
+                    stay the same; only the brain changes.</p>
+
+                <h2>Running It 24/7</h2>
+
+                <p>The Mac Mini runs OpenClaw as a system service that starts on boot. A UPS handles power fluctuations.
+                    The OS is configured to auto-restart after outages. A Cloudflare tunnel makes the dashboard
+                    accessible from anywhere via <code>openclaw.magizhan.work</code>.</p>
+
+                <p>It's been running continuously for weeks. The assistant answers messages at 3 AM, runs scheduled
+                    tasks, and is ready when I open Slack in the morning. The cost? A Mac Mini that draws about 15
+                    watts. Less than a lightbulb.</p>
+
+                <blockquote>
+                    <p>The best assistant isn't the smartest one. It's the one that's always available, already knows
+                        the context, and acts before you finish asking.</p>
+                </blockquote>
+
+                <h2>Who Is This For?</h2>
+
+                <p>If you're comfortable with a terminal and believe your tools should work for you (not the other way
+                    around), OpenClaw is worth the setup time. It's not a product you consume — it's infrastructure you
+                    own.</p>
+
+                <p>For me as a CEO, it's become the bridge between high-level thinking and hands-on execution. I don't
+                    need to context-switch to GitHub, don't need to remember CI URLs, don't need to open dashboards. I
+                    just tell my assistant what I want, and it happens.</p>
+
+                <p>That's not the future. That's Tuesday.</p>
+
+                <hr>
+
+                <p><em>Magizhan is the CEO of Namma Yatri. He runs OpenClaw on a Mac Mini and gives kudos to his team
+                        through Slack while running on the treadmill.</em></p>
+            </article>
+
+            <div class="like-section" id="like-section">
+                <button class="like-btn" id="like-btn" onclick="toggleLike('openclaw-jarvis')">
+                    <svg class="like-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                        </path>
+                    </svg>
+                    <span class="like-count" id="like-count"></span>
+                </button>
+            </div>
+
+            <footer class="footer">
+                <div class="footer-line"></div>
+                <p class="footer-text">magizhan.work</p>
+            </footer>
+        </div>
+    </main>
+
+    <script src="../script.js"></script>
+    <script src="../likes.js"></script>
+</body>
+
+</html>

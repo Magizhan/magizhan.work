@@ -1,0 +1,7 @@
+name = "likes-api"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "LIKES_STORE"
+id = "65e54ffdf41242669e76719a1ff63ce6"

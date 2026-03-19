@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Agentic Coding Revolution — Magizhan</title>
+    <meta name="description"
+        content="How Google Antigravity is transforming the way we build software — from IDE to agent-first development.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="../style.css">
+</head>
+
+<body>
+    <canvas id="grid-canvas"></canvas>
+    <div class="noise"></div>
+
+    <nav class="nav">
+        <a href="/" class="nav-logo">M</a>
+        <div class="nav-links">
+            <a href="/" class="nav-link">Home</a>
+            <a href="/#blog" class="nav-link">Blog</a>
+        </div>
+    </nav>
+
+    <main class="blog-post-layout">
+        <div class="container">
+            <a href="/" class="back-link">← Back</a>
+
+            <header class="post-header">
+                <div class="post-meta">
+                    <span class="post-date">February 7, 2026</span>
+                    <span class="post-tag">AI</span>
+                </div>
+                <h1 class="post-title">The Agentic Coding Revolution</h1>
+                <p class="post-subtitle">How Google Antigravity is transforming the way we build software — from IDE to
+                    agent-first development.</p>
+            </header>
+
+            <article class="post-content">
+                <p>There's a moment when a technology stops being a tool and starts being a collaborator. I experienced
+                    that moment last week when I watched an AI agent plan, research, code, test, and deploy a feature
+                    across our codebase — while I reviewed its work like a senior engineer reviewing a junior's PR.</p>
+
+                <p>That tool is <strong>Google Antigravity</strong>, and it represents a fundamental shift in how
+                    software gets built.</p>
+
+                <h2>What Is Agentic Coding?</h2>
+
+                <p>Traditional AI coding assistants autocomplete your code. They're fast typists with good memory.
+                    Agentic coding is different — it's <strong>autonomous problem-solving</strong>. You describe what
+                    you want, and the agent:</p>
+
+                <ul>
+                    <li>Researches the existing codebase to understand patterns </li>
+                    <li>Creates an implementation plan and asks for your approval</li>
+                    <li>Writes the code across multiple files</li>
+                    <li>Runs tests and fixes issues</li>
+                    <li>Documents what it did and why</li>
+                </ul>
+
+                <p>The shift isn't from "typing code" to "generating code." It's from <strong>writing software</strong>
+                    to <strong>directing software</strong>.</p>
+
+                <h2>Antigravity in Practice</h2>
+
+                <p>At Namma Yatri, I've been using Antigravity for everything from debugging Haskell build issues to
+                    building analytics dashboards. Here's what surprised me:</p>
+
+                <div class="highlight-box">
+                    <h3>The 10x isn't in speed — it's in scope</h3>
+                    <p>Before Antigravity, I'd context-switch between understanding code, writing code, and verifying
+                        code. Now I operate at the <strong>architecture level</strong>. I describe the system I want,
+                        review the plan, and validate the output. The mechanical translation from intent to code is
+                        handled by the agent.</p>
+                </div>
+
+                <p>A concrete example: our executive metrics dashboard needed a complete overhaul — new data pipeline,
+                    ClickHouse queries, React components, and live comparison charts. With Antigravity, this went from a
+                    multi-sprint project to a <strong>multi-day collaboration</strong>. The agent handled the ETL
+                    refactoring, I handled the product decisions.</p>
+
+                <h2>The CEO Perspective</h2>
+
+                <p>As a CEO, I shouldn't be writing code. But I do, because understanding the system deeply is how I
+                    make better product decisions. Antigravity changes the equation — I can <strong>engage with our
+                        codebase at the architectural level</strong> without getting lost in implementation details.</p>
+
+                <blockquote>
+                    <p>The best leaders don't need to write every line of code. They need to understand every line of
+                        intent.</p>
+                </blockquote>
+
+                <p>When I'm debugging a build issue at 2 AM, I don't want to read Stack Overflow. I want an agent that
+                    already knows our toolchain, our constraints (Apple Silicon + Haskell + dynamic linking, anyone?),
+                    and can figure it out while I think about what to ship next.</p>
+
+                <h2>What's Next</h2>
+
+                <p>We're at the beginning of something massive. The tools will get better. The agents will get smarter.
+                    But the hardest part isn't the technology — it's the <strong>mental model shift</strong>. Moving
+                    from "I write code" to "I direct code" requires trust, and trust requires transparency.</p>
+
+                <p>Antigravity gets this right with its artifact system — implementation plans, walkthroughs, task
+                    tracking. You always know what the agent is doing and why. That's the foundation of trust.</p>
+
+                <p>The future of coding isn't autocomplete. It's autopilot with a really good flight deck.</p>
+
+                <hr>
+
+                <p><em>Magizhan is the CEO of Namma Yatri, India's open mobility platform. He writes about technology,
+                        leadership, and maximising value.</em></p>
+            </article>
+
+            <div class="like-section" id="like-section">
+                <button class="like-btn" id="like-btn" onclick="toggleLike('agentic-coding')">
+                    <svg class="like-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path
+                            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                        </path>
+                    </svg>
+                    <span class="like-count" id="like-count"></span>
+                </button>
+            </div>
+
+            <footer class="footer">
+                <div class="footer-line"></div>
+                <p class="footer-text">magizhan.work</p>
+            </footer>
+        </div>
+    </main>
+
+    <script src="../script.js"></script>
+    <script src="../likes.js"></script>
+</body>
+
+</html>
