@@ -1,0 +1,399 @@
+.requests-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.requests-layout {
+  display: flex;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+/* Doctor selector sidebar */
+.doctor-selector {
+  min-width: 200px;
+  flex: 0 0 auto;
+}
+
+.field-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.doctor-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.doctor-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: #ffffff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #4b5563;
+  transition: all 0.15s;
+  text-align: left;
+}
+
+.doctor-chip:hover {
+  border-color: #c7d2fe;
+  background: #f5f3ff;
+}
+
+.doctor-chip.active {
+  border-color: #6366f1;
+  background: #eef2ff;
+  font-weight: 600;
+}
+
+.doctor-chip.has-leaves {
+  position: relative;
+}
+
+.leave-count {
+  margin-left: auto;
+  background: #fef3c7;
+  color: #92400e;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+}
+
+.duty-req-count {
+  background: #dbeafe;
+  color: #1e40af;
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 0.1rem 0.4rem;
+  border-radius: 10px;
+}
+
+/* Leave calendar */
+.leave-calendar {
+  flex: 1;
+  min-width: 280px;
+}
+
+.leave-cal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.leave-hint {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  font-style: italic;
+  margin-bottom: 0.5rem;
+}
+
+/* Calendar mode toggle */
+.calendar-mode-toggle {
+  display: flex;
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e7eb;
+}
+
+.mode-btn {
+  padding: 0.35rem 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  border: none;
+  background: #f9fafb;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.mode-btn:hover {
+  background: #f3f4f6;
+}
+
+.mode-btn.active.leave-mode {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.mode-btn.active.duty-mode {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.mini-calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 3px;
+}
+
+.mini-day-header {
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #9ca3af;
+  padding: 0.3rem;
+  text-transform: uppercase;
+}
+
+.mini-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: #fafafe;
+}
+
+.mini-cell:hover:not(.empty) {
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+
+.mini-cell.empty {
+  cursor: default;
+  background: transparent;
+}
+
+.mini-cell.leave {
+  background: #fef3c7;
+  border-color: #f59e0b;
+  color: #92400e;
+  font-weight: 700;
+}
+
+.mini-cell.duty-req {
+  background: #dbeafe;
+  border-color: #3b82f6;
+  color: #1e40af;
+  font-weight: 700;
+}
+
+.mini-cell.sunday {
+  color: #7c3aed;
+}
+
+.mini-cell.holiday {
+  color: #ef4444;
+}
+
+/* Selected leaves tags */
+.selected-leaves {
+  margin-top: 0.75rem;
+}
+
+.leave-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.3rem;
+}
+
+.leave-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  background: #fef3c7;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #92400e;
+}
+
+.leave-tag-x {
+  background: none;
+  border: none;
+  color: #b45309;
+  cursor: pointer;
+  font-size: 0.9rem;
+  line-height: 1;
+  padding: 0;
+}
+
+.leave-tag-x:hover {
+  color: #ef4444;
+}
+
+.duty-req-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.5rem;
+  background: #dbeafe;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #1e40af;
+}
+
+/* Duty limits */
+.duty-limits-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.duty-limit-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 8px;
+  background: #fafafe;
+}
+
+.duty-limit-row:hover {
+  background: #f3f4f6;
+}
+
+.duty-limit-name {
+  flex: 1;
+  font-size: 0.85rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.duty-limit-input {
+  width: 70px;
+  text-align: center;
+  padding: 0.3rem 0.4rem;
+  font-size: 0.85rem;
+}
+
+/* Holiday management */
+.holiday-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 1rem;
+}
+
+.holiday-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: #fef2f2;
+}
+
+.holiday-date {
+  font-weight: 700;
+  color: #ef4444;
+  font-size: 0.9rem;
+  min-width: 28px;
+}
+
+.holiday-name {
+  flex: 1;
+  color: #374151;
+  font-size: 0.85rem;
+}
+
+.no-holidays {
+  color: #9ca3af;
+  font-size: 0.85rem;
+  margin-bottom: 1rem;
+}
+
+.add-holiday-row {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Generate card */
+.generate-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #eef2ff, #f5f3ff);
+  border-color: #c7d2fe;
+}
+
+.generate-info .card-title {
+  margin-bottom: 0.25rem;
+}
+
+.generate-info .card-subtitle {
+  margin: 0;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+/* Mobile responsive */
+@media (max-width: 768px) {
+  .requests-layout {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .doctor-selector {
+    min-width: unset;
+  }
+  .doctor-chips {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+  }
+  .doctor-chip {
+    padding: 0.35rem 0.6rem;
+    font-size: 0.8rem;
+  }
+  .leave-calendar {
+    min-width: unset;
+  }
+  .generate-card {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+  .btn-lg {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .mini-cell {
+    font-size: 0.75rem;
+    border-radius: 6px;
+  }
+  .mini-day-header {
+    font-size: 0.6rem;
+    padding: 0.2rem;
+  }
+  .holiday-item {
+    padding: 0.4rem 0.5rem;
+    gap: 0.5rem;
+  }
+  .holiday-name {
+    font-size: 0.78rem;
+  }
+  .add-holiday-row .input {
+    flex: 1 1 100%;
+  }
+}

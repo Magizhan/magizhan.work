@@ -1,0 +1,27 @@
+.doctor-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--doctor-color) 12%, transparent);
+  color: var(--doctor-color);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+
+.doctor-badge-sm {
+  padding: 0.15rem 0.4rem;
+  font-size: 0.7rem;
+  border-radius: 5px;
+}
+
+.doctor-badge-md {
+  padding: 0.25rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.doctor-badge-lg {
+  padding: 0.4rem 0.9rem;
+  font-size: 1.1rem;
+}

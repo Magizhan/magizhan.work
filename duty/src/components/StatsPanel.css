@@ -1,0 +1,133 @@
+.stats-panel {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 1.25rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.stats-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin: 0 0 1rem;
+}
+
+.stats-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.stats-header {
+  display: grid;
+  grid-template-columns: 1fr 50px 40px 40px 65px 90px;
+  gap: 0.5rem;
+  padding: 0.3rem 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: #9ca3af;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 50px 40px 40px 65px 90px;
+  gap: 0.5rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 6px;
+  align-items: center;
+  transition: background 0.15s;
+}
+
+.stats-row:hover {
+  background: #f9fafb;
+}
+
+.stats-doctor {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.stats-name {
+  font-size: 0.8rem;
+  color: #4b5563;
+  font-weight: 500;
+}
+
+.stats-num {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+  text-align: center;
+}
+
+.stats-total {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: relative;
+}
+
+.stats-bar {
+  height: 18px;
+  border-radius: 4px;
+  opacity: 0.2;
+  transition: width 0.3s ease;
+}
+
+.stats-total-num {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1f2937;
+  position: relative;
+}
+
+/* Responsive header labels */
+.label-short {
+  display: none;
+}
+
+.stats-header span {
+  text-align: center;
+}
+
+/* Mobile: fit stats table within viewport */
+@media (max-width: 640px) {
+  .stats-panel {
+    padding: 0.75rem;
+  }
+  .label-full {
+    display: none;
+  }
+  .label-short {
+    display: inline;
+  }
+  .stats-header,
+  .stats-row {
+    grid-template-columns: 1fr 32px 28px 28px 32px 32px;
+    gap: 0.4rem;
+    padding: 0.3rem 0.25rem;
+  }
+  .stats-header span {
+    font-size: 0.65rem;
+    text-align: center;
+  }
+  .stats-name {
+    font-size: 0.7rem;
+  }
+  .stats-num {
+    font-size: 0.75rem;
+  }
+  .stats-total-num {
+    font-size: 0.8rem;
+  }
+  .stats-bar {
+    display: none;
+  }
+  .stats-title {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,209 @@
+.teams-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 1rem;
+}
+
+.card-title-accent {
+  color: #6366f1;
+  font-weight: 600;
+}
+
+.card-subtitle {
+  font-size: 0.85rem;
+  color: #6b7280;
+  margin: -0.5rem 0 1rem;
+}
+
+.card-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.card-header-row .card-title {
+  margin: 0;
+}
+
+/* Team list */
+.team-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 1rem;
+}
+
+.team-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #e5e7eb;
+  transition: all 0.15s;
+}
+
+.team-item:hover {
+  border-color: #c7d2fe;
+  background: #f5f3ff;
+}
+
+.team-item.active {
+  border-color: #6366f1;
+  background: #eef2ff;
+}
+
+.team-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.team-name {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.9rem;
+}
+
+.team-count {
+  font-size: 0.75rem;
+  color: #9ca3af;
+}
+
+.team-actions {
+  display: flex;
+  gap: 0.3rem;
+}
+
+/* Add team */
+.add-team-row {
+  display: flex;
+  gap: 0.5rem;
+}
+
+/* Inputs */
+.input {
+  padding: 0.45rem 0.75rem;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #374151;
+  outline: none;
+  transition: border-color 0.2s;
+  flex: 1;
+  min-width: 0;
+}
+
+.input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.input-sm {
+  max-width: 80px;
+  flex: 0;
+}
+
+/* Add doctor form */
+.add-doctor-form {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  border: 1px dashed #d1d5db;
+}
+
+/* Doctor list */
+.doctor-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.doctor-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  transition: background 0.15s;
+}
+
+.doctor-item:hover {
+  background: #f9fafb;
+}
+
+.doctor-name {
+  flex: 1;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #374151;
+}
+
+.no-doctors {
+  color: #9ca3af;
+  font-size: 0.85rem;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+/* Data actions */
+.data-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .card {
+    padding: 1rem;
+    border-radius: 10px;
+  }
+  .card-title {
+    font-size: 1rem;
+  }
+  .add-doctor-form {
+    flex-wrap: wrap;
+  }
+  .add-doctor-form .input {
+    flex: 1 1 100%;
+  }
+  .add-doctor-form .input-sm {
+    flex: 0 0 60px;
+  }
+  .add-doctor-form .btn {
+    flex: 0 0 auto;
+  }
+  .team-item {
+    padding: 0.6rem 0.75rem;
+  }
+  .data-actions {
+    flex-direction: column;
+  }
+  .data-actions .btn {
+    justify-content: center;
+  }
+  .add-team-row {
+    flex-wrap: wrap;
+  }
+}
