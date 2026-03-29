@@ -132,6 +132,38 @@
   color: #d1d5db;
 }
 
+/* Full export wrapper (calendar + stats for image download) */
+.calendar-full-export {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Swap interaction */
+.swap-hint {
+  padding: 0.5rem 1rem;
+  background: #eef2ff;
+  border: 1px solid #c7d2fe;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  color: #4338ca;
+}
+
+.calendar-cell.has-doctor {
+  cursor: pointer;
+}
+
+.calendar-cell.selected {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.3), 0 2px 8px rgba(99, 102, 241, 0.15);
+  transform: scale(1.02);
+}
+
+.calendar-cell.swappable:hover {
+  border-color: #a5b4fc !important;
+  box-shadow: 0 0 0 2px rgba(165, 180, 252, 0.3);
+}
+
 /* Buttons */
 .btn {
   padding: 0.5rem 1.1rem;

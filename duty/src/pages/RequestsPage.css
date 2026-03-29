@@ -275,10 +275,12 @@
 }
 
 .duty-limit-input {
-  width: 70px;
+  width: 80px;
+  min-width: 80px;
+  flex: 0 0 auto;
   text-align: center;
-  padding: 0.3rem 0.4rem;
-  font-size: 0.85rem;
+  padding: 0.45rem 0.5rem;
+  font-size: 0.9rem;
 }
 
 /* Holiday management */

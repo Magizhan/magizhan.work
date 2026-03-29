@@ -1,0 +1,7 @@
+name = "duty-cal"
+main = "worker.js"
+compatibility_date = "2024-01-01"
+
+[[kv_namespaces]]
+binding = "DUTY_STORE"
+id = "b720bbd64b5440d7928cc1582d0dc321"

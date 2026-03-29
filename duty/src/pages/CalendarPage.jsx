@@ -1,10 +1,13 @@
-import { useRef, useCallback } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { toPng } from 'html-to-image';
 import { useRota } from '../context/RotaContext';
 import { DAY_LABELS } from '../constants/defaults';
 import MonthPicker from '../components/MonthPicker';
 import StatsPanel from '../components/StatsPanel';
 import DoctorBadge from '../components/DoctorBadge';
+import SwapConfirmModal from '../components/SwapConfirmModal';
+import CalendarSyncPanel from '../components/CalendarSyncPanel';
+import { validateSwap } from '../utils/swapValidator';
 import './CalendarPage.css';
 
 function getDaysInMonth(year, month) {
@@ -16,32 +19,81 @@ function getFirstDayOfWeek(year, month) {
 }
 
 export default function CalendarPage() {
-  const { activeTeam, setMonthYear, generate } = useRota();
+  const { activeTeam, setMonthYear, generate, swapAssignments } = useRota();
   const calRef = useRef(null);
-  const { selectedMonth: month, selectedYear: year, doctors, generatedRota, holidays } = activeTeam;
+  const fullRef = useRef(null);
+  const { selectedMonth: month, selectedYear: year, doctors, generatedRota, holidays, leaveRequests } = activeTeam;
+
+  const [selectedCell, setSelectedCell] = useState(null);
+  const [swapModal, setSwapModal] = useState(null); // { source, target, warnings }
 
   const handleMonthChange = useCallback(
     (m, y) => setMonthYear(m, y),
     [setMonthYear]
   );
 
-  const handleGenerate = useCallback(() => generate(), [generate]);
+  const handleGenerate = useCallback(() => {
+    setSelectedCell(null);
+    generate();
+  }, [generate]);
 
-  const handleDownload = useCallback(async () => {
-    if (!calRef.current) return;
+  const handleDownload = useCallback(async (ref, suffix = '') => {
+    if (!ref.current) return;
     try {
-      const dataUrl = await toPng(calRef.current, {
+      const dataUrl = await toPng(ref.current, {
         backgroundColor: '#f9fafb',
         pixelRatio: 2,
       });
       const a = document.createElement('a');
       a.href = dataUrl;
-      a.download = `duty_rota_${year}_${month + 1}.png`;
+      a.download = `duty_rota_${year}_${month + 1}${suffix}.png`;
       a.click();
     } catch (err) {
       console.error('Download failed:', err);
     }
   }, [year, month]);
+
+  const handleCellClick = useCallback((cell) => {
+    if (!cell.doctor || !generatedRota) return;
+
+    if (!selectedCell) {
+      setSelectedCell(cell);
+      return;
+    }
+
+    if (selectedCell.day === cell.day) {
+      setSelectedCell(null);
+      return;
+    }
+
+    // Validate the swap
+    const warnings = validateSwap(
+      generatedRota.assignments,
+      selectedCell.day,
+      cell.day,
+      leaveRequests || {},
+      holidays,
+      doctors,
+    );
+
+    setSwapModal({
+      source: selectedCell,
+      target: cell,
+      warnings,
+    });
+  }, [selectedCell, generatedRota, leaveRequests, holidays, doctors]);
+
+  const handleSwapConfirm = useCallback(() => {
+    if (!swapModal) return;
+    swapAssignments(swapModal.source.day, swapModal.target.day);
+    setSwapModal(null);
+    setSelectedCell(null);
+  }, [swapModal, swapAssignments]);
+
+  const handleSwapCancel = useCallback(() => {
+    setSwapModal(null);
+    setSelectedCell(null);
+  }, []);
 
   const totalDays = getDaysInMonth(year, month);
   const firstDay = getFirstDayOfWeek(year, month);
@@ -104,9 +156,14 @@ export default function CalendarPage() {
             {generatedRota ? '🔄 Regenerate' : '⚡ Generate Rota'}
           </button>
           {generatedRota && (
-            <button className="btn btn-secondary" onClick={handleDownload}>
-              📥 Download Image
-            </button>
+            <>
+              <button className="btn btn-secondary" onClick={() => handleDownload(calRef)}>
+                📥 Calendar
+              </button>
+              <button className="btn btn-secondary" onClick={() => handleDownload(fullRef, '_full')}>
+                📥 Full Report
+              </button>
+            </>
           )}
         </div>
       </div>
@@ -118,55 +175,93 @@ export default function CalendarPage() {
         </div>
       )}
 
-      <div className="calendar-content" ref={calRef}>
-        <div className="calendar-grid-wrapper">
-          <div className="calendar-team-label">{activeTeam.name}</div>
-          <div className="calendar-grid">
-            {DAY_LABELS.map((label) => (
-              <div
-                key={label}
-                className={`calendar-day-header ${label === 'Sun' ? 'sunday' : ''} ${label === 'Fri' || label === 'Sat' ? 'weekend' : ''}`}
-              >
-                {label}
-              </div>
-            ))}
-            {cells.map((cell) => {
-              if (cell.empty) return <div key={cell.key} className="calendar-cell empty" />;
+      {selectedCell && (
+        <div className="swap-hint">
+          Swapping <strong>{selectedCell.doctor?.name}</strong> (day {selectedCell.day}) — click another doctor to swap, or click same cell to cancel
+        </div>
+      )}
 
-              const cellClasses = [
-                'calendar-cell',
-                cell.isSunday ? 'sunday' : '',
-                cell.isHoliday ? 'holiday' : '',
-                cell.isFriday ? 'friday' : '',
-                cell.isSaturday ? 'saturday' : '',
-              ]
-                .filter(Boolean)
-                .join(' ');
-
-              return (
-                <div key={cell.key} className={cellClasses}>
-                  <span className="cell-date">{cell.day}</span>
-                  {cell.isHoliday && (
-                    <span className="cell-holiday-tag">{cell.holidayName}</span>
-                  )}
-                  {cell.doctor ? (
-                    <DoctorBadge
-                      initials={cell.doctor.initials}
-                      color={cell.doctor.color}
-                      name={cell.doctor.name}
-                      size="md"
-                    />
-                  ) : cell.assignment?.doctorInitials === '—' ? (
-                    <span className="cell-no-doctor">—</span>
-                  ) : null}
+      <div className="calendar-full-export" ref={fullRef}>
+        <div className="calendar-content" ref={calRef}>
+          <div className="calendar-grid-wrapper">
+            <div className="calendar-team-label">{activeTeam.name}</div>
+            <div className="calendar-grid">
+              {DAY_LABELS.map((label) => (
+                <div
+                  key={label}
+                  className={`calendar-day-header ${label === 'Sun' ? 'sunday' : ''} ${label === 'Fri' || label === 'Sat' ? 'weekend' : ''}`}
+                >
+                  {label}
                 </div>
-              );
-            })}
+              ))}
+              {cells.map((cell) => {
+                if (cell.empty) return <div key={cell.key} className="calendar-cell empty" />;
+
+                const isSelected = selectedCell?.day === cell.day;
+                const isSwappable = selectedCell && !isSelected && cell.doctor;
+
+                const cellClasses = [
+                  'calendar-cell',
+                  cell.isSunday ? 'sunday' : '',
+                  cell.isHoliday ? 'holiday' : '',
+                  cell.isFriday ? 'friday' : '',
+                  cell.isSaturday ? 'saturday' : '',
+                  isSelected ? 'selected' : '',
+                  isSwappable ? 'swappable' : '',
+                  cell.doctor ? 'has-doctor' : '',
+                ]
+                  .filter(Boolean)
+                  .join(' ');
+
+                return (
+                  <div
+                    key={cell.key}
+                    className={cellClasses}
+                    onClick={() => handleCellClick(cell)}
+                  >
+                    <span className="cell-date">{cell.day}</span>
+                    {cell.isHoliday && (
+                      <span className="cell-holiday-tag">{cell.holidayName}</span>
+                    )}
+                    {cell.doctor ? (
+                      <DoctorBadge
+                        initials={cell.doctor.initials}
+                        color={cell.doctor.color}
+                        name={cell.doctor.name}
+                        size="md"
+                      />
+                    ) : cell.assignment?.doctorInitials === '—' ? (
+                      <span className="cell-no-doctor">—</span>
+                    ) : null}
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
+
+        {generatedRota && <StatsPanel stats={stats} doctors={doctors} />}
       </div>
 
-      {generatedRota && <StatsPanel stats={stats} doctors={doctors} />}
+      {generatedRota && (
+        <CalendarSyncPanel
+          assignments={assignments}
+          doctors={doctors}
+          teamName={activeTeam.name}
+          year={year}
+          month={month}
+        />
+      )}
+
+      {swapModal && (
+        <SwapConfirmModal
+          source={swapModal.source}
+          target={swapModal.target}
+          warnings={swapModal.warnings}
+          onConfirm={handleSwapConfirm}
+          onCancel={handleSwapCancel}
+        />
+      )}
     </div>
   );
 }

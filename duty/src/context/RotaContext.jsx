@@ -1,10 +1,25 @@
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { DEFAULT_DOCTORS, DEFAULT_HOLIDAYS, DOCTOR_COLORS } from '../constants/defaults';
-import { generateRota } from '../utils/rotaGenerator';
+import { generateRota, recalculateStats } from '../utils/rotaGenerator';
 
 const RotaContext = createContext(null);
 
 const STORAGE_KEY = 'duty-rota-data';
+const WORKER_URL = 'https://duty-cal.mags-814.workers.dev';
+
+function syncRotaToWorker(team) {
+  if (!team.generatedRota) return;
+  fetch(`${WORKER_URL}/api/rota`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      teamId: team.id,
+      teamName: team.name,
+      assignments: team.generatedRota.assignments,
+      doctors: team.doctors,
+    }),
+  }).catch(() => { /* silent — sync is best-effort */ });
+}
 
 function getInitialState() {
   try {
@@ -184,7 +199,31 @@ export function RotaProvider({ children }) {
       dutyLimits: team.dutyLimits || {},
     });
     updateTeam(state.activeTeamId, { generatedRota: result });
+    syncRotaToWorker({ ...team, generatedRota: result });
     return result;
+  }, [state.activeTeamId, state.teams, updateTeam]);
+
+  const swapAssignments = useCallback((dayA, dayB) => {
+    const teamId = state.activeTeamId;
+    const team = state.teams[teamId];
+    if (!team.generatedRota) return;
+
+    const rota = structuredClone(team.generatedRota);
+    const assignA = rota.assignments.find((a) => a.day === dayA);
+    const assignB = rota.assignments.find((a) => a.day === dayB);
+    if (!assignA || !assignB) return;
+
+    // Swap doctorId and doctorInitials
+    [assignA.doctorId, assignB.doctorId] = [assignB.doctorId, assignA.doctorId];
+    [assignA.doctorInitials, assignB.doctorInitials] = [assignB.doctorInitials, assignA.doctorInitials];
+
+    // Recalculate counters and stats from scratch
+    const { counters, stats } = recalculateStats(rota.assignments, team.doctors);
+    rota.counters = counters;
+    rota.stats = stats;
+
+    updateTeam(teamId, { generatedRota: rota });
+    syncRotaToWorker({ ...team, generatedRota: rota });
   }, [state.activeTeamId, state.teams, updateTeam]);
 
   const exportData = useCallback(() => {
@@ -232,6 +271,7 @@ export function RotaProvider({ children }) {
     removeHoliday,
     setMonthYear,
     generate,
+    swapAssignments,
     exportData,
     importData,
   };

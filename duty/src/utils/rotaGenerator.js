@@ -235,4 +235,25 @@ export function generateRota({
   return { assignments, counters, stats };
 }
 
+/**
+ * Recalculate counters and stats from assignments (used after manual swaps).
+ */
+export function recalculateStats(assignments, doctors) {
+  const counters = {};
+  doctors.forEach((doc) => {
+    counters[doc.id] = { weekday: 0, friday: 0, saturday: 0, sundayHoliday: 0, total: 0 };
+  });
+  assignments.forEach((a) => {
+    if (a.doctorId && counters[a.doctorId]) {
+      counters[a.doctorId][a.category]++;
+      counters[a.doctorId].total++;
+    }
+  });
+  const stats = {};
+  doctors.forEach((doc) => {
+    stats[doc.id] = { ...counters[doc.id], name: doc.name, initials: doc.initials };
+  });
+  return { counters, stats };
+}
+
 export { DAY_CATEGORIES, formatDate, categorizDay };
